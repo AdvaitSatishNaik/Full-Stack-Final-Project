@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "../components/Navbar";
@@ -8,45 +8,43 @@ import EmployeeTable from "../components/EmployeeTable";
 import { fetchEmployees } from "../slices/employeeSlice";
 
 const Employees = () => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const { employees, loading } = useSelector(
+    (state) => state.employee
+  );
 
-    const { employees, loading } = useSelector(
-        (state) => state.employee
-    );
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-    useEffect(() => {
+  useEffect(() => {
+    dispatch(fetchEmployees());
+  }, [dispatch]);
 
-        dispatch(fetchEmployees());
+  return (
+    <>
+      <Navbar />
 
-    }, [dispatch]);
+      <div style={{ padding: "30px" }}>
+        <h1>Employee Management</h1>
 
-    return (
+        <EmployeeForm
+          selectedEmployee={selectedEmployee}
+          clearSelection={() => setSelectedEmployee(null)}
+        />
 
-        <>
+        <br />
 
-            <Navbar />
-
-            <div style={{ padding: "30px" }}>
-
-                <h1>Employee Management</h1>
-
-                <EmployeeForm />
-
-                <br />
-
-                {loading ? (
-                    <h2>Loading...</h2>
-                ) : (
-                    <EmployeeTable employees={employees} />
-                )}
-
-            </div>
-
-        </>
-
-    );
-
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : (
+          <EmployeeTable
+            employees={employees}
+            onEdit={setSelectedEmployee}
+          />
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Employees;

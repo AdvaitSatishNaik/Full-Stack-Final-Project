@@ -1,112 +1,127 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { addEmployee } from "../slices/employeeSlice";
+import {
+  addEmployee,
+  updateEmployee,
+} from "../slices/employeeSlice";
 
-const EmployeeForm = () => {
+const EmployeeForm = ({ selectedEmployee, clearSelection }) => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const [employee, setEmployee] = useState({
+    name: "",
+    age: "",
+    department: "",
+    salary: "",
+    skills: "",
+    userId: "",
+  });
 
-    const [employee, setEmployee] = useState({
-        name: "",
-        age: "",
-        department: "",
-        salary: "",
-        skills: "",
-        userId: ""
+  useEffect(() => {
+    if (selectedEmployee) {
+      setEmployee({
+        ...selectedEmployee,
+        skills: selectedEmployee.skills.join(", "),
+      });
+    }
+  }, [selectedEmployee]);
+
+  const handleChange = (e) => {
+    setEmployee({
+      ...employee,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const handleChange = (e) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        setEmployee({
-            ...employee,
-            [e.target.name]: e.target.value,
-        });
-
+    const employeeData = {
+      ...employee,
+      skills: employee.skills.split(","),
     };
 
-    const handleSubmit = (e) => {
+    if (selectedEmployee) {
+      dispatch(
+        updateEmployee({
+          id: selectedEmployee._id,
+          employee: employeeData,
+        })
+      );
 
-        e.preventDefault();
+      clearSelection();
+    } else {
+      dispatch(addEmployee(employeeData));
+    }
 
-        dispatch(
-            addEmployee({
-                ...employee,
-                skills: employee.skills.split(","),
-            })
-        );
+    setEmployee({
+      name: "",
+      age: "",
+      department: "",
+      salary: "",
+      skills: "",
+      userId: "",
+    });
+  };
 
-        setEmployee({
-            name: "",
-            age: "",
-            department: "",
-            salary: "",
-            skills: "",
-            userId: ""
-        });
+  return (
+    <form onSubmit={handleSubmit}>
 
-    };
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        value={employee.name}
+        onChange={handleChange}
+      />
 
-    return (
+      <input
+        type="number"
+        name="age"
+        placeholder="Age"
+        value={employee.age}
+        onChange={handleChange}
+      />
 
-        <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="department"
+        placeholder="Department"
+        value={employee.department}
+        onChange={handleChange}
+      />
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={employee.name}
-                onChange={handleChange}
-            />
+      <input
+        type="number"
+        name="salary"
+        placeholder="Salary"
+        value={employee.salary}
+        onChange={handleChange}
+      />
 
-            <input
-                type="number"
-                name="age"
-                placeholder="Age"
-                value={employee.age}
-                onChange={handleChange}
-            />
+      <input
+        type="text"
+        name="skills"
+        placeholder="React,Node"
+        value={employee.skills}
+        onChange={handleChange}
+      />
 
-            <input
-                type="text"
-                name="department"
-                placeholder="Department"
-                value={employee.department}
-                onChange={handleChange}
-            />
+      <input
+        type="text"
+        name="userId"
+        placeholder="User Id"
+        value={employee.userId}
+        onChange={handleChange}
+      />
 
-            <input
-                type="number"
-                name="salary"
-                placeholder="Salary"
-                value={employee.salary}
-                onChange={handleChange}
-            />
+      <button type="submit">
+        {selectedEmployee ? "Update Employee" : "Add Employee"}
+      </button>
 
-            <input
-                type="text"
-                name="skills"
-                placeholder="React,Node"
-                value={employee.skills}
-                onChange={handleChange}
-            />
-
-            <input
-                type="text"
-                name="userId"
-                placeholder="User Id"
-                value={employee.userId}
-                onChange={handleChange}
-            />
-
-            <button type="submit">
-                Add Employee
-            </button>
-
-        </form>
-
-    );
-
+    </form>
+  );
 };
 
 export default EmployeeForm;

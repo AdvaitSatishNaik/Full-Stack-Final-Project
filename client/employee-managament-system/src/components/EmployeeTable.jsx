@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deleteEmployee } from "../slices/employeeSlice";
 
-const EmployeeTable = ({ employees }) => {
+const EmployeeTable = ({ employees, onEdit }) => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -15,7 +15,15 @@ const EmployeeTable = ({ employees }) => {
   };
 
   return (
-    <table border="1" cellPadding="10" style={{ width: "100%" }}>
+    <table
+      border="1"
+      cellPadding="10"
+      style={{
+        width: "100%",
+        marginTop: "20px",
+        borderCollapse: "collapse",
+      }}
+    >
       <thead>
         <tr>
           <th>Name</th>
@@ -37,11 +45,13 @@ const EmployeeTable = ({ employees }) => {
             <td>{employee.skills.join(", ")}</td>
 
             <td>
-              <button>Edit</button>
+              <button onClick={() => onEdit(employee)}>
+                Edit
+              </button>
 
               <button
-                onClick={() => handleDelete(employee._id)}
                 style={{ marginLeft: "10px" }}
+                onClick={() => handleDelete(employee._id)}
               >
                 Delete
               </button>
