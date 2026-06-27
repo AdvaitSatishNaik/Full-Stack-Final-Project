@@ -22,18 +22,14 @@
 .card {
   width: 300px;
   height: 210px;
-
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 18px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-
   transition: all 0.3s ease;
 }
 
