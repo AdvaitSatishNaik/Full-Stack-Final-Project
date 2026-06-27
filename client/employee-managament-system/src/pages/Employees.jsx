@@ -37,9 +37,9 @@ const Employees = () => {
 
         <div className="employee-form-card">
 
-          <div className="form-title">
+          {/* <div className="form-title">
             {selectedEmployee ? "✏️ Update Employee" : "➕ Add New Employee"}
-          </div>
+          </div> */}
 
           <EmployeeForm
             selectedEmployee={selectedEmployee}
