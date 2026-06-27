@@ -16,44 +16,65 @@ const EmployeeTable = ({ employees, onEdit }) => {
 
   return (
     <table
-      border="1"
-      cellPadding="10"
       style={{
         width: "100%",
-        marginTop: "20px",
+        marginTop: "30px",
         borderCollapse: "collapse",
+        background: "#fff",
+        borderRadius: "15px",
+        overflow: "hidden",
+        boxShadow: "0 10px 25px rgba(0,0,0,.08)",
       }}
     >
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Department</th>
-          <th>Salary</th>
-          <th>Skills</th>
-          <th>Actions</th>
+        <tr
+          style={{
+            background: "#1e293b",
+            color: "#fff",
+          }}
+        >
+          <th style={thStyle}>Name</th>
+          <th style={thStyle}>Age</th>
+          <th style={thStyle}>Department</th>
+          <th style={thStyle}>Salary</th>
+          <th style={thStyle}>Skills</th>
+          <th style={thStyle}>Actions</th>
         </tr>
       </thead>
 
       <tbody>
-        {employees.map((employee) => (
-          <tr key={employee._id}>
-            <td>{employee.name}</td>
-            <td>{employee.age}</td>
-            <td>{employee.department}</td>
-            <td>{employee.salary}</td>
-            <td>{employee.skills.join(", ")}</td>
+        {employees.map((employee, index) => (
+          <tr
+            key={employee._id}
+            style={{
+              background: index % 2 === 0 ? "#ffffff" : "#f8fafc",
+            }}
+          >
+            <td style={tdStyle}>{employee.name}</td>
+            <td style={tdStyle}>{employee.age}</td>
+            <td style={tdStyle}>{employee.department}</td>
 
-            <td>
-              <button onClick={() => onEdit(employee)}>
-                Edit
+            <td style={tdStyle}>
+              ₹ {employee.salary.toLocaleString("en-IN")}
+            </td>
+
+            <td style={tdStyle}>
+              {employee.skills.join(", ")}
+            </td>
+
+            <td style={tdStyle}>
+              <button
+                style={editButton}
+                onClick={() => onEdit(employee)}
+              >
+                ✏️ Edit
               </button>
 
               <button
-                style={{ marginLeft: "10px" }}
+                style={deleteButton}
                 onClick={() => handleDelete(employee._id)}
               >
-                Delete
+                🗑 Delete
               </button>
             </td>
           </tr>
@@ -61,6 +82,41 @@ const EmployeeTable = ({ employees, onEdit }) => {
       </tbody>
     </table>
   );
+};
+
+const thStyle = {
+  padding: "18px",
+  fontSize: "18px",
+  fontWeight: "600",
+};
+
+const tdStyle = {
+  padding: "18px",
+  textAlign: "center",
+  borderBottom: "1px solid #e5e7eb",
+};
+
+const editButton = {
+  background: "#2563eb",
+  color: "#fff",
+  border: "none",
+  padding: "10px 18px",
+  borderRadius: "8px",
+  cursor: "pointer",
+  marginRight: "10px",
+  fontWeight: "600",
+  transition: "0.3s",
+};
+
+const deleteButton = {
+  background: "#ef4444",
+  color: "#fff",
+  border: "none",
+  padding: "10px 18px",
+  borderRadius: "8px",
+  cursor: "pointer",
+  fontWeight: "600",
+  transition: "0.3s",
 };
 
 export default EmployeeTable;
