@@ -25,24 +25,50 @@ const Employees = () => {
     <>
       <Navbar />
 
-      <div style={{ padding: "30px" }}>
-        <h1>Employee Management</h1>
+      <div className="employees-page">
 
-        <EmployeeForm
-          selectedEmployee={selectedEmployee}
-          clearSelection={() => setSelectedEmployee(null)}
-        />
+        {/* Header */}
 
-        <br />
+        <div className="page-header">
+          <h1>Employee Management</h1>
+        </div>
 
-        {loading ? (
-          <h2>Loading...</h2>
-        ) : (
-          <EmployeeTable
-            employees={employees}
-            onEdit={setSelectedEmployee}
+        {/* Form Card */}
+
+        <div className="employee-form-card">
+
+          <div className="form-title">
+            {selectedEmployee ? "✏️ Update Employee" : "➕ Add New Employee"}
+          </div>
+
+          <EmployeeForm
+            selectedEmployee={selectedEmployee}
+            clearSelection={() => setSelectedEmployee(null)}
           />
-        )}
+
+        </div>
+
+        {/* Table */}
+
+        <div className="employee-table-card">
+
+          <div className="table-title">
+            Employee Directory
+          </div>
+
+          {loading ? (
+            <div className="loading">
+              Loading Employees...
+            </div>
+          ) : (
+            <EmployeeTable
+              employees={employees}
+              onEdit={setSelectedEmployee}
+            />
+          )}
+
+        </div>
+
       </div>
     </>
   );

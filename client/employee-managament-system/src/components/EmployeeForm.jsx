@@ -39,7 +39,7 @@ const EmployeeForm = ({ selectedEmployee, clearSelection }) => {
 
     const employeeData = {
       ...employee,
-      skills: employee.skills.split(","),
+      skills: employee.skills.split(",").map(skill => skill.trim()),
     };
 
     if (selectedEmployee) {
@@ -66,62 +66,96 @@ const EmployeeForm = ({ selectedEmployee, clearSelection }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+        gap: "20px",
+      }}
+    >
       <input
         type="text"
         name="name"
-        placeholder="Name"
+        placeholder="👤 Employee Name"
         value={employee.name}
         onChange={handleChange}
+        style={inputStyle}
       />
 
       <input
         type="number"
         name="age"
-        placeholder="Age"
+        placeholder="🎂 Age"
         value={employee.age}
         onChange={handleChange}
+        style={inputStyle}
       />
 
       <input
         type="text"
         name="department"
-        placeholder="Department"
+        placeholder="🏢 Department"
         value={employee.department}
         onChange={handleChange}
+        style={inputStyle}
       />
 
       <input
         type="number"
         name="salary"
-        placeholder="Salary"
+        placeholder="💰 Salary"
         value={employee.salary}
         onChange={handleChange}
+        style={inputStyle}
       />
 
       <input
         type="text"
         name="skills"
-        placeholder="React,Node"
+        placeholder="💻 React, Node, MongoDB"
         value={employee.skills}
         onChange={handleChange}
+        style={inputStyle}
       />
 
       <input
         type="text"
         name="userId"
-        placeholder="User Id"
+        placeholder="🆔 User ID"
         value={employee.userId}
         onChange={handleChange}
+        style={inputStyle}
       />
 
-      <button type="submit">
-        {selectedEmployee ? "Update Employee" : "Add Employee"}
+      <button
+        type="submit"
+        style={{
+          gridColumn: "span 2",
+          background: selectedEmployee ? "#2563eb" : "#16a34a",
+          color: "#fff",
+          border: "none",
+          padding: "15px",
+          borderRadius: "10px",
+          fontSize: "17px",
+          fontWeight: "600",
+          cursor: "pointer",
+          transition: ".3s",
+        }}
+      >
+        {selectedEmployee ? "✏️ Update Employee" : "➕ Add Employee"}
       </button>
-
     </form>
   );
+};
+
+const inputStyle = {
+  padding: "15px",
+  border: "1px solid #d1d5db",
+  borderRadius: "10px",
+  fontSize: "15px",
+  outline: "none",
+  background: "#fff",
 };
 
 export default EmployeeForm;
