@@ -6,6 +6,7 @@ import EmployeeForm from "../components/EmployeeForm";
 import EmployeeTable from "../components/EmployeeTable";
 
 import { fetchEmployees } from "../slices/employeeSlice";
+import "./Employees.css";
 
 const Employees = () => {
   const dispatch = useDispatch();
