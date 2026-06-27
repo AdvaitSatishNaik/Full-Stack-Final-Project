@@ -38,17 +38,25 @@ const Dashboard = () => {
         <div className="cards">
           <div className="card">
             <h3>Total Employees</h3>
-            <h1>{dashboard.totalEmployees}</h1>
+            <h1 className="card-value">
+              {dashboard.totalEmployees}
+            </h1>
           </div>
 
           <div className="card">
             <h3>Total Projects</h3>
-            <h1>{dashboard.totalProjects}</h1>
+            <h1 className="card-value">
+              {dashboard.totalProjects}
+            </h1>
           </div>
 
           <div className="card">
             <h3>Total Budget</h3>
-            <h1>₹ {dashboard.totalBudget}</h1>
+
+            <h1 className="card-value">
+              <span className="currency">₹</span>
+              {dashboard.totalBudget.toLocaleString("en-IN")}
+            </h1>
           </div>
         </div>
       </div>
