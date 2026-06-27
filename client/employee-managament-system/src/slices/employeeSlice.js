@@ -7,7 +7,7 @@ export const fetchEmployees = createAsyncThunk(
   async () => {
     const response = await API.get("/employees");
     return response.data.employees;
-  },
+  }
 );
 
 // Add Employee
@@ -16,7 +16,7 @@ export const addEmployee = createAsyncThunk(
   async (employee) => {
     const response = await API.post("/employees", employee);
     return response.data.employee;
-  },
+  }
 );
 
 // Delete Employee
@@ -25,7 +25,16 @@ export const deleteEmployee = createAsyncThunk(
   async (id) => {
     await API.delete(`/employees/${id}`);
     return id;
-  },
+  }
+);
+
+// Update Employee
+export const updateEmployee = createAsyncThunk(
+  "employee/updateEmployee",
+  async ({ id, employee }) => {
+    const response = await API.put(`/employees/${id}`, employee);
+    return response.data.employee;
+  }
 );
 
 const employeeSlice = createSlice({
@@ -65,25 +74,16 @@ const employeeSlice = createSlice({
       // Delete Employee
       .addCase(deleteEmployee.fulfilled, (state, action) => {
         state.employees = state.employees.filter(
-          (employee) => employee._id !== action.payload,
+          (employee) => employee._id !== action.payload
         );
       })
 
       // Update Employee
       .addCase(updateEmployee.fulfilled, (state, action) => {
         state.employees = state.employees.map((emp) =>
-          emp._id === action.payload._id ? action.payload : emp,
+          emp._id === action.payload._id ? action.payload : emp
         );
       });
-
-    // Update Employee
-    export const updateEmployee = createAsyncThunk(
-      "employee/updateEmployee",
-      async ({ id, employee }) => {
-        const response = await API.put(`/employees/${id}`, employee);
-        return response.data.employee;
-      },
-    );
   },
 });
 
