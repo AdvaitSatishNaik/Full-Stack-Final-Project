@@ -32,48 +32,21 @@ const Dashboard = () => {
     <>
       <Navbar />
 
-      <div style={{ padding: "30px" }}>
+      <div className="dashboard">
         <h1>Dashboard</h1>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            marginTop: "30px",
-          }}
-        >
-          <div
-            style={{
-              width: "220px",
-              padding: "20px",
-              border: "1px solid #ddd",
-              borderRadius: "10px",
-            }}
-          >
+        <div className="cards">
+          <div className="card">
             <h3>Total Employees</h3>
             <h1>{dashboard.totalEmployees}</h1>
           </div>
 
-          <div
-            style={{
-              width: "220px",
-              padding: "20px",
-              border: "1px solid #ddd",
-              borderRadius: "10px",
-            }}
-          >
+          <div className="card">
             <h3>Total Projects</h3>
             <h1>{dashboard.totalProjects}</h1>
           </div>
 
-          <div
-            style={{
-              width: "220px",
-              padding: "20px",
-              border: "1px solid #ddd",
-              borderRadius: "10px",
-            }}
-          >
+          <div className="card">
             <h3>Total Budget</h3>
             <h1>₹ {dashboard.totalBudget}</h1>
           </div>
