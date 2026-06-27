@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
-const Navbar = () => {
+function Navbar() {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -9,57 +10,21 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      style={{
-        background: "#1e293b",
-        color: "white",
-        padding: "15px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <h2>Employee Management System</h2>
+    <nav className="navbar">
+      <div className="logo">
+        Employee Management
+      </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        <Link
-          to="/dashboard"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
-        >
-          Dashboard
-        </Link>
+      <div className="nav-links">
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/employees">Employees</Link>
 
-        <Link
-          to="/employees"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
-        >
-          Employees
-        </Link>
-
-        <button
-          onClick={logout}
-          style={{
-            padding: "8px 15px",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={logout}>
           Logout
         </button>
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;
